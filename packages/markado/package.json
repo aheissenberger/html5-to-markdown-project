@@ -1,0 +1,39 @@
+{
+  "name": "markado",
+  "source": "src/index.ts",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.module.js",
+  "unpkg": "dist/index.umd.js",
+  "license": "bsd-2-clause",
+  "description": "Fast HTML to markdown transformer, compatible with browser and node.",
+  "keywords": [
+    "markdown",
+    "html",
+    "browser",
+    "converter"
+  ],
+  "author": "Andreas Heissenberger <andreas@heissenberger.at>",
+  "homepage": "https://github.com/aheissenberger/html5-to-markdown",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aheissenberger/html5-to-markdown.git",
+    "directory":"packages/markado"
+  },
+  "scripts": {
+    "build": "microbundle build",
+    "dev": "microbundle watch",
+    "prepublishOnly": "microbundle build",
+    "test": "npm run jest"
+  },
+  "dependencies": {
+    "htmlparser2": "^6.0.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "jest": "^26.6.3",
+    "microbundle": "^0.13.0",
+    "ts-jest": "^26.5.3"
+  }
+}

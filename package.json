@@ -1,0 +1,13 @@
+{
+  "name": "html5-to-markdown-project",
+  "version": "0.0.0",
+  "license": "bsd-2-clause",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^4.0.0",
+    "microbundle": "^0.13.0"
+  }
+}
