@@ -87,7 +87,7 @@ export function html2markdown(html: string, options?: object): string {
                 return;
             }
 
-            if (!inlineElement.includes(tagname) && !['pre'].includes(tagname)) {
+            if (!inlineElement.includes(tagname) && !['pre','thead'].includes(tagname)) {
                 markdown = markdown.trimRight()
             }
             markdown += render?.[tagname]?.close({ tagStack, lastTag }) ?? ''

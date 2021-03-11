@@ -205,7 +205,65 @@ export const render = {
         close() {
             return "\n```\n"
         },
-    }
+    },
+    table: {
+        open(attributes) {
+            return "\n"
+        },
+        text: defaultText,
+        close() {
+            return "\n"
+        }
+    },
+    thead: {
+        open(attributes) {
+            return ""
+        },
+        text: defaultText,
+        close(context) {
+            const tag=context.tagStack.last()
+            return "|"+(" --- |".repeat(tag?.colCounter ?? 0))+"\n"
+        }
+    },
+    tr: {
+        open(attributes) {
+            return ""
+        },
+        text: defaultText,
+        close() {
+            return " |\n"
+        }
+    },
+    td: {
+        open(attributes) {
+            return "| "
+        },
+        text: defaultText,
+        close(context) {
+            const theadHirachy=context.tagStack.getTags(['thead']);
+            if (theadHirachy.length>0) {
+                const parentTHEAD = theadHirachy[theadHirachy.length-1]
+                if (parentTHEAD['colCounter']===undefined) parentTHEAD['colCounter']=0;
+                parentTHEAD['colCounter']++
+            }
+            return " "
+        }
+    },
+    th: {
+        open(attributes) {
+            return "| "
+        },
+        text: defaultText,
+        close(context) {
+            const theadHirachy=context.tagStack.getTags(['thead']);
+            if (theadHirachy.length>0) {
+                const parentTHEAD = theadHirachy[theadHirachy.length-1]
+                if (parentTHEAD['colCounter']===undefined) parentTHEAD['colCounter']=0;
+                parentTHEAD['colCounter']++
+            }
+            return ""
+        }
+    },
 }
 
 export const inlineElement = [
