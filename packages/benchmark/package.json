@@ -1,0 +1,11 @@
+{
+  "name": "benchmark",
+  "version": "1.0.0",
+  "private":"true",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "node-html-markdown": "^0.1.5",
+    "turndown": "^7.0.0"
+  }
+}
