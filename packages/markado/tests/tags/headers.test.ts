@@ -1,4 +1,4 @@
-import {html2markdown} from '../../src/html2markdown'
+import {html2markdown} from '../../src'
 
 describe('h1',()=>{
     it('simple',()=>{
