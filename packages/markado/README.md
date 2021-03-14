@@ -46,9 +46,64 @@ Options can be passed as a second parameter:
 const md = html2markdown(html, {removeElements:['head']})
 ```
 
-| Option         | Description                                  | Values                      | Default            |
-| :------------- | :------------------------------------------- | :-------------------------- | :----------------- |
-| removeElements | tag including children and conten is ignored | any tag, e.g. head, section | ['script','style'] |
+| Option                 | Description                                                          | Values                      | Default                   |
+| :--------------------- | :------------------------------------------------------------------- | :-------------------------- | :------------------------ |
+| removeElements         | tag including children and conten is ignored                         | any tag, e.g. head, section | ['script','style','head'] |
+| frontmatter [optional] | scrape values from tags and attributes and create a yaml frontmatter | {} [deactivated]            |
+
+### frontmatter
+
+```Javascript
+const md = html2markdown(html, {frontmatter: {
+    props: [source, title, description,lang],
+    defaults: {
+        source: 'https://www.website.test'
+    }
+}})
+```
+
+given the following website code:
+
+```html
+<html lang="en">
+  <head>
+    <title>Title | Website</title>
+    <meta property="og:title" content="Title OG" />
+    <meta name="twitter:title" content="Title Twitter" />
+    <link rel="canonical" href="https://www.canonical.test" />
+    <meta name="description" content="Description" />
+  </head>
+</html>
+```
+
+will result in
+
+```
+---
+source: https://www.canonical.test
+title: Title OG
+description: Description
+lang: en
+---
+```
+
+**frontmatter:**
+
+| Option              | Description                                                                  | Values                     | Default |
+| :------------------ | :--------------------------------------------------------------------------- | :------------------------- | :------ |
+| props               | the attributes used to create the frontmatter yaml                           | `string[]` - list of names | []      |
+| defaults [optional] | default values for props. If not listed in `props`, the value is still used! |                            | {}      |
+
+#### built in predefined parses for props
+
+| property | parsed tags |
+| --- | --- |
+| lang | `html:lang` |
+| title | `meta:og:title`, `meta:twitter:title`, `title`|
+| description | `meta:og:description`, `meta:twitter:description`, `meta:description` |
+| source | `link:rel:canonical` |
+
+
 
 ### Contribution
 
@@ -62,10 +117,9 @@ Contributions are what make the open source community such an amazing place to b
 
 ### Built With
 
-* [htmlparser2](https://github.com/fb55/htmlparser2)
-* [microbundle](https://github.com/developit/microbundle)
+- [htmlparser2](https://github.com/fb55/htmlparser2)
+- [microbundle](https://github.com/developit/microbundle)
 
 ### License
 
 Distributed under the "bsd-2-clause" License. See [LICENSE.txt](LICENSE.txt) for more information.
-

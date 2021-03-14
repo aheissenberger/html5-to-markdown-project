@@ -1,40 +1,26 @@
 import * as htmlparser2 from 'htmlparser2';
 import { render, inlineElement, defaultText } from './render'
+import { TagStack } from './tagStack'
+import { FrontmatterParser,FrontmatterParserOptionsType } from './frontmatter'
 
-class TagStack {
-    private stack=[];
-
-    push(tagname:string,attributes:object){
-        this.stack.push({tagname,attributes})
-    }
-
-    pop(){
-        this.stack.pop()
-    }
-
-    last(){
-        if (this.stack.length===0) return undefined;
-        return this.stack[this.stack.length-1]
-    }
-    lastTagname(){
-        if (this.stack.length===0) return undefined;
-        return this.last().tagname;
-    }
-
-    getTags(filterTags){
-        return this.stack.filter(tag =>(filterTags.includes(tag.tagname)))
-    }
+type OptionsType = {
+    removeElemens?: string[]
+    frontmatter?: FrontmatterParserOptionsType
 }
 
-export function html2markdown(html: string, options?: object): string {
+
+
+export function html2markdown(html: string, options: OptionsType = {}): string {
     let markdown = ''
     const tagStack = new TagStack()
     let lastTag = ''
 
     const opt = {
-        removeElements: ['script', 'style'],
+        removeElements: ['script', 'style', 'head'],
         ...options
     }
+
+    const frontmatter = opt?.frontmatter ? new FrontmatterParser(opt.frontmatter) : null
 
     const parser = new htmlparser2.Parser({
         onopentag(tagname, attributes) {
@@ -46,8 +32,9 @@ export function html2markdown(html: string, options?: object): string {
     nme` and `onattribute` events.
              */
             const lastTagname = tagStack.lastTagname()
+            opt?.frontmatter && frontmatter.open(tagname, attributes)
             if (opt.removeElements.includes(lastTagname)) return;
-            tagStack.push(tagname,attributes);
+            tagStack.push(tagname, attributes);
             if (opt.removeElements.includes(tagname)) return
             //if (A.size(A.intersection(StringEq)(opt.removeElements)(currentTag))>0) return;
 
@@ -55,7 +42,6 @@ export function html2markdown(html: string, options?: object): string {
             //     console.log("JS! Hooray!");
             // }
             markdown += render?.[tagname]?.open(attributes, { tagStack, lastTag }) ?? ''
-
         },
         ontext(text) {
             /*
@@ -65,6 +51,7 @@ export function html2markdown(html: string, options?: object): string {
              * have to stich together multiple pieces.
              */
             const lastTagname = tagStack.lastTagname()
+            opt?.frontmatter && frontmatter.text(text)
             if (opt.removeElements.includes(lastTagname)) return;
             markdown += render?.[lastTagname]?.text(text, { tagStack, lastTag }) ?? defaultText(text, { tagStack, lastTag })
         },
@@ -79,6 +66,7 @@ export function html2markdown(html: string, options?: object): string {
              */
 
             const lastTagname = tagStack.lastTagname()
+            opt?.frontmatter && frontmatter.close()
             if (opt.removeElements.includes(lastTagname)) {
                 if (tagname === lastTagname) {
                     tagStack.pop()
@@ -87,7 +75,7 @@ export function html2markdown(html: string, options?: object): string {
                 return;
             }
 
-            if (!inlineElement.includes(tagname) && !['pre','thead','tbody','table'].includes(tagname)) {
+            if (!inlineElement.includes(tagname) && !['pre', 'thead', 'tbody', 'table'].includes(tagname)) {
                 markdown = markdown.trimRight()
             }
             markdown += render?.[tagname]?.close({ tagStack, lastTag }) ?? ''
@@ -98,7 +86,7 @@ export function html2markdown(html: string, options?: object): string {
 
     parser.write(html);
     parser.end()
-    return markdown
+    return (frontmatter?frontmatter.getYaml():'') + markdown
 }
 
 export function escape(text: string): string {
