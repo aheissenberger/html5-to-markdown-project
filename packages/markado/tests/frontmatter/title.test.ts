@@ -60,7 +60,7 @@ describe('title', () => {
 
     it('meta plus body', () => {
         const html = '<html><head><title>Title</title></head><body><h1>Header 1</h1></body></html>'
-        const expected = "---\ntitle: Title\n---\n\n# Header 1" 
+        const expected = "---\ntitle: Title\n---\n\n# Header 1\n" 
         const md = html2markdown(html,{
            frontmatter: {
                props: ['title']
@@ -71,7 +71,7 @@ describe('title', () => {
     
     it('lang', () => {
         const html = '<html lang="en" data-color-mode="light" data-light-theme="light" data-dark-theme="dark"></html>'
-        const expected = "---\nlang: en\n---\n" 
+        const expected = "---\nlang: en\n---\n\n" 
         const md = html2markdown(html,{
            frontmatter: {
                props: ['lang']
@@ -89,7 +89,7 @@ describe('title', () => {
         </head>
       </html>`
       
-        const expected = "---\ndescription: Description 3\n---\n" 
+        const expected = "---\ndescription: Description 3\n---\n\n" 
         const md = html2markdown(html,{
            frontmatter: {
                props: ['description']

@@ -75,10 +75,10 @@ export function html2markdown(html: string, options: OptionsType = {}): string {
                 return;
             }
 
-            if (!inlineElement.includes(tagname) && !['pre', 'thead', 'tbody', 'table'].includes(tagname)) {
+            if (!inlineElement.includes(tagname) && !['pre', 'code', 'thead', 'tbody', 'table'].includes(tagname)) {
                 markdown = markdown.trimRight()
             }
-            markdown += render?.[tagname]?.close({ tagStack, lastTag }) ?? ''
+            markdown += render?.[tagname]?.close({ tagStack, lastTag }) ?? (inlineElement.includes(tagname)?'':"\n")
             lastTag = tagname;
             tagStack.pop()
         }

@@ -25,6 +25,13 @@ describe('code', () => {
         const md = html2markdown(html)
         expect(md).toBe(expected)
     })
+     it('Block code followd by paragraph', () => {
+        const html = '<web-copy><button></button><pre class="hljs language-javascript"><code> var a=1; </code></pre></web-copy><p>Paragraph Text</p></div>'
+        const expected = "\n``` javascript\n var a=1; \n```\nParagraph Text\n\n"
+        const md = html2markdown(html)
+        expect(md).toBe(expected)
+    })
+  
 })
 
 xdescribe('pre', () => {

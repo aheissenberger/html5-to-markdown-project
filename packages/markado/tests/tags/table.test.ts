@@ -36,6 +36,7 @@ describe('table', () => {
 | Header | Title |
 | Paragraph | Text |
 
+
 ` 
         const md = html2markdown(html)
         expect(md).toBe(expected)

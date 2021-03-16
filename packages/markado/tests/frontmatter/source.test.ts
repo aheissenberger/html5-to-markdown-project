@@ -8,7 +8,7 @@ describe('source', () => {
         </head>
       </html>`
       
-        const expected = "---\nsource: https://www.canonical.test/\n---\n" 
+        const expected = "---\nsource: https://www.canonical.test/\n---\n\n" 
         const md = html2markdown(html,{
            frontmatter: {
                props: ['source'],
@@ -27,7 +27,7 @@ describe('source', () => {
         </head>
       </html>`
       
-        const expected = "---\nsource: https://www.website.test/\n---\n" 
+        const expected = "---\nsource: https://www.website.test/\n---\n\n" 
         const md = html2markdown(html,{
            frontmatter: {
                props: ['source'],
@@ -45,7 +45,7 @@ describe('source', () => {
         </head>
       </html>`
       
-      const expected = '---\nsource: ""\n---\n'
+      const expected = '---\nsource: ""\n---\n\n'
         const md = html2markdown(html,{
            frontmatter: {
                props: ['source'],
