@@ -264,6 +264,17 @@ export const render = {
             return ""
         }
     },
+    blockquote: {
+        open(attributes,context) {
+            const bqHirachy=context.tagStack.getTags(['blockquote']);
+            const level = Math.max(0,bqHirachy.length-1)
+            return (level===0?'':"\n")+">".repeat(1*level+1)+" "
+        },
+        text: defaultText,
+        close() {
+            return "\n"
+        }
+    }
 }
 
 export const inlineElement = [
