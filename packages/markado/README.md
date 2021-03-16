@@ -104,6 +104,12 @@ lang: en
 | source | `link:rel:canonical` |
 | `<any_name>` | `<meta name="<any_name>" content="<result>" />` |
 
+### Roadmap
+
+ - [ ] better support for nested markup - e.g. blockquote
+ - [ ] api to extend render function
+ - [ ] api to extend frontmatter parser
+ - [ ] option to detect main content and strip unrelevant content blocks
 
 ### Contribution
 
