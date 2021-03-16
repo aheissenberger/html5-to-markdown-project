@@ -4,12 +4,11 @@
   "version": "1.0.0-alpha.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "module": "dist/index.module.js",
-  "unpkg": "dist/index.umd.js",
   "license": "bsd-2-clause",
-  "description": "Fast HTML to markdown transformer, compatible with browser and node.",
+  "description": "Fast HTML to Markdown transformer with support for frontmatter which runs in the browser.",
   "keywords": [
     "markdown",
+    "frontmatter",
     "html",
     "browser",
     "converter"
@@ -29,7 +28,8 @@
   },
   "dependencies": {
     "htmlparser2": "^6.0.1",
-    "yaml": "^2.0.0-4"
+    "microbundle": "^0.13.0",
+    "yaml": "^1.10.2"
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",

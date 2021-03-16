@@ -1,6 +1,6 @@
 # Markado
 
-Fast HTML to Markdown transformer which runs in the browser.
+Fast HTML to Markdown transformer with support for frontmatter which runs in the browser.
 
 ## Installation
 
@@ -96,13 +96,13 @@ lang: en
 
 #### built in predefined parses for props
 
-| property | parsed tags |
+| property | parsed tags priority |
 | --- | --- |
 | lang | `html:lang` |
 | title | `meta:og:title`, `meta:twitter:title`, `title`|
 | description | `meta:og:description`, `meta:twitter:description`, `meta:description` |
 | source | `link:rel:canonical` |
-
+| `<any_name>` | `<meta name="<any_name>" content="<result>" />` |
 
 
 ### Contribution

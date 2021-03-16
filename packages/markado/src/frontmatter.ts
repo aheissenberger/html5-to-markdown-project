@@ -1,6 +1,7 @@
+//import {stringify as YAMLStringify} from 'yaml'
 import * as YAML from 'yaml'
 import { TagStack } from './tagStack'
-
+const {stringify:YAMLStringify} = YAML
 
 export type FrontmatterParserOptionsType = {
     defaults?: object
@@ -217,7 +218,7 @@ export class FrontmatterParser {
 
     getYaml() {
         const result = this.mergeFrontmatterObject()
-        return isEmpty(result) ? '' : "---\n" + YAML.stringify(result) + "---\n"
+        return isEmpty(result) ? '' : "---\n" + YAMLStringify(result) + "---\n"
     }
     getObject() {
         return this.mergeFrontmatterObject()
