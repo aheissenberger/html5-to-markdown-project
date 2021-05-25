@@ -49,13 +49,14 @@ const md = html2markdown(html, {removeElements:['head']})
 | Option                 | Description                                                          | Values                      | Default                   |
 | :--------------------- | :------------------------------------------------------------------- | :-------------------------- | :------------------------ |
 | removeElements         | tag including children and conten is ignored                         | any tag, e.g. head, section | ['script','style','head'] |
-| frontmatter [optional] | scrape values from tags and attributes and create a yaml frontmatter | {} [deactivated]            |
+| frontmatter [optional] | scrape values from tags and attributes and create a yaml frontmatter | {} [deactivated]            |                           |
 
 ### frontmatter
 
 ```Javascript
 const md = html2markdown(html, {frontmatter: {
     props: [source, title, description,lang],
+    bookmarks: false,
     defaults: {
         source: 'https://www.website.test'
     }
@@ -93,6 +94,7 @@ lang: en
 | :------------------ | :--------------------------------------------------------------------------- | :------------------------- | :------ |
 | props               | the attributes used to create the frontmatter yaml                           | `string[]` - list of names | []      |
 | defaults [optional] | default values for props. If not listed in `props`, the value is still used! |                            | {}      |
+| bookmarks | create markdown content after frontmatter with Headline, tags and description | true / false | false |
 
 #### built in predefined parses for props
 

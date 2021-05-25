@@ -1,11 +1,12 @@
 import * as htmlparser2 from 'htmlparser2';
 import { render, inlineElement, defaultText } from './render'
 import { TagStack } from './tagStack'
-import { FrontmatterParser,FrontmatterParserOptionsType } from './frontmatter'
+import { FrontmatterParser, FrontmatterParserOptionsType } from './frontmatter'
 
 type OptionsType = {
-    removeElemens?: string[]
+    removeElements?: string[]
     frontmatter?: FrontmatterParserOptionsType
+    bookmarks?: boolean
 }
 
 
@@ -78,7 +79,7 @@ export function html2markdown(html: string, options: OptionsType = {}): string {
             if (!inlineElement.includes(tagname) && !['pre', 'code', 'thead', 'tbody', 'table', 'blockquote'].includes(tagname)) {
                 markdown = markdown.trimRight()
             }
-            markdown += render?.[tagname]?.close({ tagStack, lastTag }) ?? (inlineElement.includes(tagname)?'':"\n")
+            markdown += render?.[tagname]?.close({ tagStack, lastTag }) ?? (inlineElement.includes(tagname) ? '' : "\n")
             lastTag = tagname;
             tagStack.pop()
         }
@@ -86,7 +87,7 @@ export function html2markdown(html: string, options: OptionsType = {}): string {
 
     parser.write(html);
     parser.end()
-    return (frontmatter?frontmatter.getYaml():'') + markdown
+    return (frontmatter ? frontmatter.getYaml() : '') + (frontmatter ? frontmatter.getBookmarksMarkdown() : '') + markdown
 }
 
 export function escape(text: string): string {

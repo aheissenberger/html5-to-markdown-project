@@ -6,6 +6,7 @@ const {stringify:YAMLStringify} = YAML
 export type FrontmatterParserOptionsType = {
     defaults?: object
     props?: string[]
+    bookmarks?: boolean
 }
 // type TagParserType = {
 //     tagName: string
@@ -48,10 +49,12 @@ export class FrontmatterParser {
     private frontmatterObjectTemp = {}
     private tagList: TagList
     private tagStack
+    private options: FrontmatterParserOptionsType
 
     constructor(options: FrontmatterParserOptionsType = {}) {
         this.frontmatterObject = options?.defaults ?? {};
         this.tagStack = new TagStack();
+        this.options = options
 
         const frontmatterParseOptionsDefault = {
             lang: {
@@ -222,5 +225,12 @@ export class FrontmatterParser {
     }
     getObject() {
         return this.mergeFrontmatterObject()
+    }
+    getBookmarksMarkdown(){
+        if (this.options?.bookmarks) {
+            const result:any = this.mergeFrontmatterObject()
+            return `# ${result.title}\n\n${result.tags.map(t=>'#'+t).join(' ')}\n\n${result.description}\n`
+        }
+        return ''
     }
 }
