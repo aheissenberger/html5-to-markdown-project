@@ -91,18 +91,18 @@ title: Title
 
         const sourceURL = 'https://www.example.com/'
 
-        const tags = ["Das ist #alles X-_-X \nÜberhaupt!"]
+        const tags = ["Das ist #alles88 X-_-X \nÜberhaupt!"]
 
         const expected = `---
 source: https://www.example.com/
 tags:
-  - das-ist-alles-x-_-x-ueberhaupt
+  - das-ist-alles88-x-_-x-ueberhaupt
 description: ""
 title: Title
 ---
 # Title
 
-#das-ist-alles-x-_-x-ueberhaupt
+#das-ist-alles88-x-_-x-ueberhaupt
 
 
 

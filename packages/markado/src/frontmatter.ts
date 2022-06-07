@@ -210,7 +210,7 @@ export class FrontmatterParser {
           .replace(/\u00dc/g, 'Ue');
       }
     private normalizeTags(tags:string[]):string[] {
-        return tags.map(t=>this.replaceUmlauts(t).toLowerCase().replace(/[^a-z_-]/g,'-').replace(/^-+|-+(?=-|$)/g, ''))
+        return tags.map(t=>this.replaceUmlauts(t).toLowerCase().replace(/[^a-z0-9_-]/g,'-').replace(/^-+|-+(?=-|$)/g, ''))
     }
     private mergeFrontmatterObject() {
         const reduced = Object.entries(this.frontmatterObjectTemp).reduce((prev, [key, values]) => {
