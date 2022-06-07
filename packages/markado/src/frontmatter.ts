@@ -161,8 +161,8 @@ export class FrontmatterParser {
     }
 
     open(tagname, attributes) {
-        if (this.tagList.open?.[tagname]) {
-            this.tagList.open?.[tagname].forEach(parse => {
+        if (this.tagList.open?.hasOwnProperty(tagname)) {
+            this.tagList.open[tagname].forEach(parse => {
                 parse(attributes)
             });
         }
@@ -170,16 +170,16 @@ export class FrontmatterParser {
     }
     text(text) {
         const lastTagname = this.tagStack.lastTagname()
-        if (this.tagList.text?.[lastTagname]) {
-            this.tagList.text?.[lastTagname].forEach(parse => {
+        if (this.tagList.text?.hasOwnProperty(lastTagname)) {
+            this.tagList.text[lastTagname].forEach(parse => {
                 parse(text)
             });
         }
     }
     close() {
         const lastTagname = this.tagStack.lastTagname()
-        if (this.tagList.close?.[lastTagname]) {
-            this.tagList.close?.[lastTagname].forEach(parse => {
+        if (this.tagList.close?.hasOwnProperty(lastTagname)) {
+            this.tagList.close[lastTagname].forEach(parse => {
                 parse()
             });
         }

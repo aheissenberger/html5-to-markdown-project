@@ -54,4 +54,18 @@ describe('source', () => {
         expect(md).toBe(expected)
     })
 
+    it('tagname is internal javascript function "filter"', () => {
+        const html = `<html>
+        <svg><filter id="duotone_orange_pink"></filter></svg>
+      </html>`
+      
+      const expected = '---\nsource: ""\n---\n\n'
+        const md = html2markdown(html,{
+           frontmatter: {
+               props: ['source'],
+           }
+        })
+        expect(md).toBe(expected)
+    })
+
 })
