@@ -9,5 +9,9 @@
   "devDependencies": {
     "lerna": "^4.0.0",
     "microbundle": "^0.13.0"
+  },
+  "scripts": {
+    "publish":"lerna publish",
+    "clean":"rm -fr packages/markado/node_modules;rm -fr node_modules"
   }
 }
