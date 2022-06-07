@@ -207,10 +207,11 @@ export class FrontmatterParser {
           .replace(/\u00fc/g, 'ue')
           .replace(/\u00c4/g, 'Ae')
           .replace(/\u00d6/g, 'Oe')
-          .replace(/\u00dc/g, 'Ue');
+          .replace(/\u00dc/g, 'Ue')
+          .replace(/\u00df/g, 'ss');
       }
     private normalizeTags(tags:string[]):string[] {
-        return tags.map(t=>this.replaceUmlauts(t).toLowerCase().replace(/[^a-z0-9_-]/g,'-').replace(/^-+|-+(?=-|$)/g, ''))
+        return tags.map(t=>this.replaceUmlauts(t).toLowerCase().replace(/[^a-z0-9_-]/g,'-').replace(/^-+|-+(?=-|$)/g, '')).filter(t=>t.length!=0)
     }
     private mergeFrontmatterObject() {
         const reduced = Object.entries(this.frontmatterObjectTemp).reduce((prev, [key, values]) => {
