@@ -31,9 +31,9 @@
     "yaml": "^2.1.1"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.20",
-    "jest": "^26.6.3",
-    "microbundle": "^0.13.0",
-    "ts-jest": "^26.5.3"
+    "@types/jest": "^28.1.1",
+    "jest": "^28.1.1",
+    "microbundle": "^0.15.0",
+    "ts-jest": "^28.0.4"
   }
 }
