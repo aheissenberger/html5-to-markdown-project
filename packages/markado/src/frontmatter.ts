@@ -211,7 +211,7 @@ export class FrontmatterParser {
           .replace(/\u00df/g, 'ss');
       }
     private normalizeTags(tags:string[]):string[] {
-        return tags.map(t=>this.replaceUmlauts(t).toLowerCase().replace(/[^a-z0-9_-]/g,'-').replace(/^-+|-+(?=-|$)/g, '')).filter(t=>t.length!=0)
+        return [...new Set<string>(tags.map(t=>this.replaceUmlauts(t).toLowerCase().replace(/[^a-z0-9_-]/g,'-').replace(/^-+|-+(?=-|$)/g, '')).filter(t=>t.length!=0))];
     }
     private mergeFrontmatterObject() {
         const reduced = Object.entries(this.frontmatterObjectTemp).reduce((prev, [key, values]) => {

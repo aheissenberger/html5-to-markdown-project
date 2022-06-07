@@ -276,4 +276,48 @@ title: Title
         })
         expect(md).toBe(expected)
     })
+
+ 
+    it('remove dupplicated tags, keep order', () => {
+
+        const html = `<html>
+        <head>
+            <title>Title</title>
+        </head>
+      </html>`
+
+        const sourceURL = 'https://www.example.com/'
+
+        const tags = ["z","a","b","c","a","b","a","b"]
+
+        const expected = `---
+source: https://www.example.com/
+tags:
+  - z
+  - a
+  - b
+  - c
+description: ""
+title: Title
+---
+# Title
+
+#z #a #b #c
+
+
+
+`
+        const md = html2markdown(html, {
+            frontmatter: {
+                props: ['description', 'title'],
+                defaults: {
+                    source: sourceURL,
+                    tags: tags
+                },
+                bookmarks: true
+            }
+        })
+        expect(md).toBe(expected)
+    })
+   
 })
